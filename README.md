@@ -23,6 +23,7 @@ python preprocess_data.py "../data/ImmGenATAC1219.peak_matched.txt" "../data/mou
 The model can then be trained by running:
 ```python
 python train_test_aitac.py model_name '../data/one_hot_seqs.npy' '../data/cell_type_array.npy' '../data/peak_names.npy'
+python train_test_aitac.py model_name '../sample_data/one_hot_seqs.npy' '../sample_data/cell_type_array.npy' '../sample_data/peak_names.npy'
 ```
 
 To extract first layer motifs run:

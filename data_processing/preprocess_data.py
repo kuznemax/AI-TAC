@@ -3,8 +3,18 @@ import json
 import os
 import sys
 import _pickle as pickle
-
+import logging
 import preprocess_utils
+
+# Configure the logging format
+logging.basicConfig(
+    level=logging.INFO,  # Set the desired logging level
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),  # Output log messages to console
+        logging.FileHandler('log.txt')  # Output log messages to file
+    ]
+)
 
 #parameters
 num_chr = 20
@@ -22,20 +32,31 @@ if not os.path.exists(directory):
 
 
 # read bed file with peak positions, and keep only entries with valid activity vectors
+logging.info("read bed started")
 positions = preprocess_utils.read_bed(data_file)
+logging.info("read bed completed")
 
 # read reference genome fasta file into dictionary
+logging.info("read genome started")
 if not os.path.exists('../data/chr_dict.pickle'):
     chr_dict = preprocess_utils.read_fasta(reference_genome, num_chr)
     pickle.dump(chr_dict, open('../data/chr_dict.pickle', "wb"))
 
 chr_dict = pickle.load(open('../data/chr_dict.pickle', "rb"))
+logging.info("read genome completed")
 
-
+logging.info("get sequences started")
 one_hot_seqs, peak_seqs, invalid_ids, peak_names = preprocess_utils.get_sequences(positions, chr_dict, num_chr)
+logging.info("get sequences completed")
+logging.info("one_hot_seqs size: " + one_hot_seqs.size)
+logging.info("peak_seqs size: " + peak_seqs.size)
+logging.info("invalid_ids size: " + invalid_ids.size)
+logging.info("peak_names size: " + peak_names.size)
 
 # remove invalid ids from intensities file so sequence/intensity files match
+logging.info("format_intensities started")
 cell_type_array, peak_names2 = preprocess_utils.format_intensities(intensity_file, invalid_ids)
+logging.info("format_intensities completed")
 
 cell_type_array = cell_type_array.astype(np.float32)
 

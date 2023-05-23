@@ -3,6 +3,7 @@ from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from collections import defaultdict
 import numpy as np
+import logging
 
 # takes DNA sequence, outputs one-hot-encoded matrix with rows A, T, G, C
 def one_hot_encoder(sequence):
@@ -51,8 +52,11 @@ def get_sequences(positions, chr_dict, num_chr):
 
     target_chr = ['chr{}'.format(i) for i in range(1, num_chr)]
 
+    num = 1
     for name in positions:
         for (chr, start, stop) in positions[name]:
+            logging.info("processing {} {} {} {} {}".format(num, name, chr, start, stop))
+            num += 1
             if chr in target_chr:
                 chr_seq = chr_dict[chr].seq
                 peak_seq = str(chr_seq)[start - 1:stop].lower()
