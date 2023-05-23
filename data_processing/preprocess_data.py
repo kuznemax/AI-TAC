@@ -50,7 +50,7 @@ one_hot_seqs, peak_seqs, invalid_ids, peak_names = preprocess_utils.get_sequence
 logging.info("get sequences completed")
 logging.info("one_hot_seqs size: {}".format(one_hot_seqs.size))
 logging.info("peak_seqs size: {}".format(peak_seqs.size))
-logging.info("invalid_ids size: {}".format(invalid_ids.size))
+logging.info("invalid_ids size: {}".format(invalid_ids.len()))
 logging.info("peak_names size: {}".format(peak_names.size))
 
 # remove invalid ids from intensities file so sequence/intensity files match

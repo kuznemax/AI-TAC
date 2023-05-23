@@ -18,6 +18,7 @@ The required input is a bed file with ATAC-seq peak locations, the reference gen
 
 ```python
 python preprocess_data.py "../data/ImmGenATAC1219.peak_matched.txt" "../data/mouse_peak_heights.csv" "../mm10/" "../data/"
+python preprocess_data.py "../data/first_1k_ImmGen_peak_matched.txt" "../data/first_1k_mouse_peak_heights.csv" "../mm10/" "../data/"
 ```
 
 The model can then be trained by running:
