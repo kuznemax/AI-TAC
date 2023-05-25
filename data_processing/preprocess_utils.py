@@ -83,12 +83,15 @@ def format_intensities(intensity_file, invalid_ids):
     peak_names = []
     with open(intensity_file) as f:
         for i, line in enumerate(f):
+            logging.info("processing line {}".format(i))
             if i == 0: continue
             columns = line.split()
             peak_name = columns[0]
             if '\x1a' not in columns:
+                logging.info("line {} is valid (does not contain special character)".format(i))
                 cell_act = columns[1:]
                 cell_type_array.append(cell_act)
+                logging.info("line {} added to file".format(i))
                 peak_names.append(peak_name)
 
     cell_type_array = np.stack(cell_type_array)
