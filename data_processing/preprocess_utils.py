@@ -55,7 +55,7 @@ def get_sequences(positions, chr_dict, num_chr):
     num = 1
     for name in positions:
         for (chr, start, stop) in positions[name]:
-            logging.info("processing {} {} {} {} {}".format(num, name, chr, start, stop))
+            #logging.info("processing {} {} {} {} {}".format(num, name, chr, start, stop))
             num += 1
             if chr in target_chr:
                 chr_seq = chr_dict[chr].seq
@@ -83,22 +83,22 @@ def format_intensities(intensity_file, invalid_ids):
     peak_names = []
     with open(intensity_file) as f:
         for i, line in enumerate(f):
-            logging.info("processing line {}".format(i))
+            #logging.info("processing line {}".format(i))
             if i == 0: continue
-            columns = line.split()
-            logging.info("columns size: {}".format(len(columns)))
+            columns = line.split(",")
+            #logging.info("columns size: {}".format(len(columns)))
             peak_name = columns[0]
             if '\x1a' not in columns:
-                logging.info("line {} is valid (does not contain special character)".format(i))
+                #logging.info("line {} is valid (does not contain special character)".format(i))
                 cell_act = columns[1:]
-                logging.info("cell_act size: {}".format(len(cell_act)))
+                #logging.info("cell_act size: {}".format(len(cell_act)))
                 cell_type_array.append(cell_act)
-                logging.info("line {} appended to cell_type_array".format(i))
+                #logging.info("line {} appended to cell_type_array".format(i))
                 peak_names.append(peak_name)
 
-    logging.info("cell_type_array size: {}".format(len(cell_type_array)))
+    #logging.info("cell_type_array size: {}".format(len(cell_type_array)))
     cell_type_array = np.stack(cell_type_array)
-    logging.info("cell_type_array size: {}".format(cell_type_array.size))
+    #logging.info("cell_type_array size: {}".format(cell_type_array.size))
     peak_names = np.stack(peak_names)
 
     return cell_type_array, peak_names
